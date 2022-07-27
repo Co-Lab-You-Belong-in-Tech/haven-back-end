@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/controllers");
-console.log(controller)
+const authController = require("../controllers/authController");
+const bcrypt = require("bcrypt");
+const validInfo = require("../middleware/validInfo")
+const authoriziton = require("../middleware/authorization")
 
-router.post("/register", controller.registerUser)
+router.post("/register", validInfo, authController.registerUser)
 
 module.exports = router;
