@@ -1,4 +1,6 @@
 const pool = require("../config/dbConfig");
+const bcryt = require("bcrypt");
+const jwtGenerator = require("../util/jwtGenerator")
 
 class AuthController {
   static async registerUser(req, res) {
