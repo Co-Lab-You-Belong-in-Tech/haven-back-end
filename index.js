@@ -14,4 +14,5 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", controller.getAllUsers);
-app.use("/auth", require("./src/routes/auth"))
+app.use("/auth", require("./src/routes/auth"));
+app.use("/activities", require("./src/routes/activities"));
