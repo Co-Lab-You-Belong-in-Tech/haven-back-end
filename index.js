@@ -1,5 +1,4 @@
 const express = require("express");
-const controller = require("./src/controllers/controllers");
 const app = express();
 const PORT = 5000;
 
@@ -13,6 +12,5 @@ app.get("/", (req, res) => {
   res.json("Hello World!");
 });
 
-app.get("/users", controller.getAllUsers);
 app.use("/auth", require("./src/routes/auth"));
 app.use("/activities", require("./src/routes/activities"));
