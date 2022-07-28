@@ -1,4 +1,4 @@
-const knexfile = require("../models/knexfile");
+const knexfile = require("../../knexfile");
 
 const Pool = require("pg").Pool;
 
