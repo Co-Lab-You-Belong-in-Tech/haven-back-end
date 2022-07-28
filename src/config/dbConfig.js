@@ -1,5 +1,3 @@
-const knexfile = require("../../knexfile");
-
 const Pool = require("pg").Pool;
 
 const development = {
@@ -16,6 +14,6 @@ const production = {
 };
 
 const pool = new Pool(
-  process.env.NODE_ENV === "production" ? knexfile.production : development
+  process.env.NODE_ENV === "production" ? production : development
 );
 module.exports = pool;
