@@ -15,7 +15,7 @@ const production = {
 
 const pool = new Pool(
   process.env.NODE_ENV === "production"
-    ? connectionProduction
-    : connectionDevelopment
+    ? production
+    : development
 );
 module.exports = pool;
