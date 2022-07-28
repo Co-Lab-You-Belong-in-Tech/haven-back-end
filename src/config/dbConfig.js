@@ -16,6 +16,6 @@ const production = {
 };
 
 const pool = new Pool(
-  process.env.NODE_ENV === "production" ? knexfile[production] : development
+  process.env.NODE_ENV === "production" ? knexfile.production : development
 );
 module.exports = pool;
