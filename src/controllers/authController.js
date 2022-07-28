@@ -24,10 +24,10 @@ class AuthController {
       );
 
       const token = jwtGenerator(newUser.rows[0].user_id);
-      res.json({ token });
+      return res.json({ token });
     } catch (error) {
       console.error(error);
-      res.status(500).json("Server error");
+      return res.status(500).json("Server error");
     }
   }
   static async loginUser(req, res) {
@@ -39,7 +39,7 @@ class AuthController {
       ]);
 
       if (user.rows.length === 0) {
-        res.status(401).json("password or email is incorrect");
+        return res.status(401).json("password or email is incorrect");
       }
 
       const validPassword = await bcryt.compare(
@@ -48,22 +48,22 @@ class AuthController {
       );
 
       if (!validPassword) {
-        res.status(401).json("password or email is incorrect");
+        return res.status(401).json("password or email is incorrect");
       }
       const token = jwtGenerator(user.rows[0].user_id);
 
-      res.json({ token });
+      return res.json({ token });
     } catch (error) {
       console.error(error);
-      res.status(500).send("Server Error");
+      return res.status(500).send("Server Error");
     }
   }
   static async isVerified(req, res) {
     try {
-      res.json(true);
+      return res.json(true);
     } catch (error) {
       console.error(error);
-      res.status(500).send("Server Error");
+      return res.status(500).send("Server Error");
     }
   }
 }
