@@ -29,10 +29,10 @@ class RepliesController {
   }
   static async deleteReply(req, res) {
     try {
-      const { id } = req.params;
+      const { reply_id } = req.params;
       const deletedReply = await pool.query(
         "DELETE FROM replies WHERE id = $1 RETURNING *",
-        [id]
+        [reply_id]
       );
       res.json(deletedReply.rows);
     } catch (error) {
