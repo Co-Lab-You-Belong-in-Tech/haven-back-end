@@ -19,10 +19,10 @@ class ActivityController {
   }
   static async postActivity(req, res) {
     try {
-      const { content, budget, people_amount } = req.body;
+      const { content, budget, spots_total } = req.body;
       const newActivity = await pool.query(
-        "INSERT INTO activities (user_id, content, budget, people_amount) VALUES ($1, $2, $3, $4) RETURNING content, budget, people_amount",
-        [req.user, content, budget, people_amount]
+        "INSERT INTO activities (user_id, content, budget, spots_total) VALUES ($1, $2, $3, $4) RETURNING content, budget, spots_total",
+        [req.user, content, budget, spots_total]
       );
       res.json(newActivity.rows);
     } catch (error) {
