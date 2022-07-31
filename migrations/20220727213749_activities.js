@@ -9,7 +9,8 @@ exports.up = function (knex) {
     table.string("title", 50);
     table.string("content", 255).notNullable();
     table.string("budget", 30);
-    table.string("people_amount", 30);
+    table.integer("spots_total");
+    table.integer("spots_open");
     table.integer("likes");
     table.integer("replies");
     table.timestamp("created_at").defaultTo(knex.fn.now());
