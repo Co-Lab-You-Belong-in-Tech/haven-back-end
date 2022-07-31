@@ -5,9 +5,9 @@ const authorization = require("../middleware/authorization");
 
 router.get("/", activityController.getAllActivities);
 router.post("/", activityController.postActivity);
-router.get("/:id/replies", activityController.getReplies);
-router.post("/:id/replies", activityController.postReply)
 router.delete("/:id", activityController.deleteActivity);
-router.delete("/:id/replies/:reply_id", activityController.deleteReply)
+router.get("/:id/replies", activityController.getReplies);
+router.post("/:id/replies", activityController.postReply);
+router.delete("/:id/replies/:reply_id", activityController.deleteReply);
 
 module.exports = router;
