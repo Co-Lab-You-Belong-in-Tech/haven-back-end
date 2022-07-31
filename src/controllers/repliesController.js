@@ -14,7 +14,7 @@ class RepliesController {
       res.status(500).json("Server error");
     }
   }
-  static async postActivity(req, res) {
+  static async postReply(req, res) {
     try {
       const { content, activity_id } = req.body;
       const newReply = await pool.query(
