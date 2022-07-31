@@ -10,3 +10,8 @@ Express server for Haven project
 - GET /activities //Get all activities 
 - POST /activities (Payload: FK user_id, content, budget, people_amount) //post activity
 - DELETE /activities/:id    //delete an activity 
+
+
+-Heroku:
+
+https://haven-nodejs.herokuapp.com/
