@@ -22,7 +22,11 @@ class UserController {
       const activities = await pool.query(
         "SELECT * from activities WHERE user_id = $1", [id]
       );
-      const userProfile = [user.rows, activities.rows]
+
+      const interests = await pool.query(
+        "SELECT interest FROM interests WHERE user_id = $1", [id]
+      )
+      const userProfile = {profile: user.rows, activities: activities.rows, interests: interests.rows}
       res.status(200).json(userProfile);
     } catch (error) {
       console.error(error);
