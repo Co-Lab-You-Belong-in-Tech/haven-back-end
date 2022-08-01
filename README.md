@@ -19,9 +19,11 @@ Express server for Haven project
 - DELETE /activities/:id/replies/:reply_id **===> Delete a reply of an activity**
 - 
   **Users**
+  
   -GET /users **===> Get all users**
   -GET /users/profile **===> Get users profile**
   -GET /users/me **===> Get your own profile**
-- Heroku:
+  
+- **Heroku:**
 
 https://haven-nodejs.herokuapp.com/
