@@ -4,6 +4,6 @@ const userController = require("../controllers/userController");
 const authorization = require("../middleware/authorization");
 
 router.get("/", authorization, userController.getUsers);
-// router.get("/:id", authorization)
+router.get("/:id", authorization, userController.getUser)
 
 module.exports = router;
