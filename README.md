@@ -8,17 +8,17 @@ Express server for Haven project
 - POST /auth/login (Payload: email, password)              **===> Login**
 - POST /auth/register (Payload: username, email, password) **===> Register**
 - 
-  *Activities*
+  **Activities**
 - GET /activities **===> Get all activities**
 - POST /activities (Payload: FK user_id, content, budget, people_amount) **===> Post activity**
 - DELETE /activities/:id    //delete an activity
 - 
-  *Replies*
+  **Replies**
 - GET /activities/:id/replies    **===> Get all replies for an activity**
 - POST /activities/:id/replies   **===> Post a reply to activity**
 - DELETE /activities/:id/replies/:reply_id **===> Delete a reply of an activity**
 - 
-  *Users*
+  **Users**
   -GET /users **===> Get all users**
   -GET /users/profile **===> Get users profile**
   -GET /users/me **===> Get your own profile**
