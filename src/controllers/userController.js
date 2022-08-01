@@ -19,7 +19,11 @@ class UserController {
         "SELECT username, pronouns, bio FROM users WHERE id = $1",
         [id]
       );
-      res.status(200).json(user.rows);
+      const activities = await pool.query(
+        "SELECT * from activities WHERE user_id = $1", [id]
+      );
+      const userProfile = [user.rows, activities.rows]
+      res.status(200).json(userProfile);
     } catch (error) {
       console.error(error);
       res.status(500).json("Server Error");
@@ -31,7 +35,12 @@ class UserController {
         "SELECT username, pronouns, bio FROM users WHERE id = $1",
         [req.user]
       );
-      res.status(200).json(myUser.rows);
+      const myActivities = await pool.query(
+        "SELECT * from activities WHERE user_id = $1", [req.user]
+      );
+      
+      const userProfile = [myUser.rows, myActivities.rows]
+      res.status(200).json(userProfile);
     } catch (error) {
       console.error(error);
       res.status(500).json("Server error");
