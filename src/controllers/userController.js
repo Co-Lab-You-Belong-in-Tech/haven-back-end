@@ -25,6 +25,18 @@ class UserController {
       res.status(500).json("Server Error");
     }
   }
+  static async getMyUser(req, res) {
+    try {
+      const myUser = await pool.query(
+        "SELECT username, pronouns, bio FROM users WHERE id = $1",
+        [req.user]
+      );
+      res.status(200).json(myUser.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("Server error");
+    }
+  }
 }
 
 module.exports = UserController;

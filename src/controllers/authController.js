@@ -23,7 +23,7 @@ class AuthController {
         [email, username, bcrytPassword]
       );
 
-      const token = jwtGenerator(newUser.rows[0].user_id);
+      const token = jwtGenerator(newUser.rows[0].id);
       return res.json({ token });
     } catch (error) {
       console.error(error);
@@ -50,7 +50,7 @@ class AuthController {
       if (!validPassword) {
         return res.status(401).json("password or email is incorrect");
       }
-      const token = jwtGenerator(user.rows[0].user_id);
+      const token = jwtGenerator(user.rows[0].id);
 
       return res.json({ token });
     } catch (error) {
