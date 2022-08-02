@@ -29,7 +29,18 @@ class FriendsController {
     }
   }
 
-  static async getOutgoingRequests() {}
+  static async getOutgoingRequests(req, res) {
+    try {
+      const outgoingRequests = await pool.query(
+        "SELECT * FROM friend_requests WHERE sender_id = $1",
+        [req.user]
+      );
+      res.status(200).json(outgoingRequests.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("Server error");
+    }
+  }
 }
 
 module.exports = FriendsController;

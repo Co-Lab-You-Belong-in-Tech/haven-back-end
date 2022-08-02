@@ -12,6 +12,11 @@ router.get(
   authorization,
   friendsController.getIncomingRequests
 );
+router.get(
+  "/me/friends_req/outgoing",
+  authorization,
+  friendsController.getOutgoingRequests
+);
 router.post("/profile/:id", authorization, friendsController.sendFriendRequest);
 
 module.exports = router;
