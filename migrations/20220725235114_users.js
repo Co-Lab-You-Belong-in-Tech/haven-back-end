@@ -9,7 +9,7 @@ exports.up = function (knex) {
     table.string("password").notNullable();
     table.string("email", 40).notNullable();
     table.string("pronouns");
-    table.string("bio", 60)
+    table.string("bio", 60);
   });
 };
 
