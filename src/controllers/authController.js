@@ -4,7 +4,7 @@ const jwtGenerator = require("../util/jwtGenerator");
 
 class AuthController {
   static async registerUser(req, res) {
-    const { email, password, username } = req.body;
+    const {email, password} = req.body;
     try {
       const user = await pool.query("SELECT * FROM users WHERE email = $1", [
         email,
@@ -19,8 +19,8 @@ class AuthController {
       const bcrytPassword = await bcryt.hash(password, salt);
 
       const newUser = await pool.query(
-        "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING *",
-        [email, username, bcrytPassword]
+        "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
+        [email, bcrytPassword]
       );
 
       const token = jwtGenerator(newUser.rows[0].id);
