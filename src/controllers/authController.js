@@ -5,7 +5,7 @@ const jwtGenerator = require("../util/jwtGenerator");
 class AuthController {
   static async checkEmail(req, res) {
     try {
-      const { email} = req.body;
+      const { email } = req.body;
       const user = await pool.query("SELECT * FROM users WHERE email = $1", [
         email,
       ]);
@@ -18,8 +18,20 @@ class AuthController {
     }
   }
   static async registerUser(req, res) {
-    const { email, password } = req.body;
     try {
+      const {
+        email,
+        password,
+        username,
+        first_name,
+        last_name,
+        pronouns,
+        location,
+        avatar_url,
+        interests,
+      } = req.body;
+
+      const interestArr = JSON.parse(interests);
       const user = await pool.query("SELECT * FROM users WHERE email = $1", [
         email,
       ]);
@@ -33,9 +45,31 @@ class AuthController {
       const bcrytPassword = await bcryt.hash(password, salt);
 
       const newUser = await pool.query(
-        "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
-        [email, bcrytPassword]
+        "INSERT INTO users (email, password, username, first_name, last_name, pronouns, location, avatar_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+        [
+          email,
+          bcrytPassword,
+          username,
+          first_name,
+          last_name,
+          pronouns,
+          location,
+          avatar_url,
+        ]
       );
+
+      const interestInsert = async (user, interest) => {
+        await pool.query(
+          "INSERT INTO interests (user_id, interest) VALUES ($1, $2)",
+          [user, interest]
+        );
+      };
+      const insertInterests = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          interestInsert(newUser.rows[0].id, arr[i]);
+        }
+      };
+      insertInterests(interestArr);
 
       const token = jwtGenerator(newUser.rows[0].id);
       return res.json({ token });
