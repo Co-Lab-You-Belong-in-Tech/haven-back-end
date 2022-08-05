@@ -3,8 +3,22 @@ const bcryt = require("bcrypt");
 const jwtGenerator = require("../util/jwtGenerator");
 
 class AuthController {
+  static async checkEmail(req, res) {
+    try {
+      const { email} = req.body;
+      const user = await pool.query("SELECT * FROM users WHERE email = $1", [
+        email,
+      ]);
+      if (user.rows.length !== 0) {
+        return res.status(401).send(false);
+      } else res.status(200).json(true);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("Server error");
+    }
+  }
   static async registerUser(req, res) {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     try {
       const user = await pool.query("SELECT * FROM users WHERE email = $1", [
         email,
