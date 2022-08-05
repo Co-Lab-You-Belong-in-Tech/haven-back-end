@@ -16,17 +16,23 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await pool.query(
-        "SELECT username, pronouns, bio FROM users WHERE id = $1",
+        "SELECT username, pronouns, bio, first_name, last_name, avatar_url, location FROM users WHERE id = $1",
         [id]
       );
       const activities = await pool.query(
-        "SELECT * from activities WHERE user_id = $1", [id]
+        "SELECT * from activities WHERE user_id = $1",
+        [id]
       );
 
       const interests = await pool.query(
-        "SELECT interest FROM interests WHERE user_id = $1", [id]
-      )
-      const userProfile = {profile: user.rows, activities: activities.rows, interests: interests.rows}
+        "SELECT interest FROM interests WHERE user_id = $1",
+        [id]
+      );
+      const userProfile = {
+        profile: user.rows,
+        activities: activities.rows,
+        interests: interests.rows,
+      };
       res.status(200).json(userProfile);
     } catch (error) {
       console.error(error);
@@ -36,14 +42,23 @@ class UserController {
   static async getMyUser(req, res) {
     try {
       const myUser = await pool.query(
-        "SELECT username, pronouns, bio FROM users WHERE id = $1",
+        "SELECT username, pronouns, bio, first_name, last_name, avatar_url, location FROM users WHERE id = $1",
         [req.user]
       );
       const myActivities = await pool.query(
-        "SELECT * from activities WHERE user_id = $1", [req.user]
+        "SELECT * from activities WHERE user_id = $1",
+        [req.user]
       );
-      
-      const userProfile = [myUser.rows, myActivities.rows]
+      const myInterests = await pool.query(
+        "SELECT * FROM interests WHERE user_id = $1",
+        [req.user]
+      );
+
+      const userProfile = {
+        myUser : myUser.rows,
+        myActivities : myActivities.rows,
+        myInterests : myInterests.rows
+      };
       res.status(200).json(userProfile);
     } catch (error) {
       console.error(error);
