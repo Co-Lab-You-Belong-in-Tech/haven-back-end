@@ -3,7 +3,7 @@ const pool = require("../config/dbConfig");
 class ActivityController {
   static async getAllActivities(req, res) {
     try {
-      const activities = await pool.query("SELECT activity.id, title, content, budget, spots_open, spots_total, username FROM activities JOIN users ON activities.user_id = users.id");
+      const activities = await pool.query("SELECT activities.id, title, content, budget, spots_open, spots_total, username FROM activities JOIN users ON activities.user_id = users.id");
       console.log(activities.rows)
       res.status(200).json(activities.rows);
     } catch (error) {
