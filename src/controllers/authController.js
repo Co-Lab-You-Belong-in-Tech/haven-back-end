@@ -31,7 +31,7 @@ class AuthController {
         interests,
       } = req.body;
 
-      const interestArr = JSON.parse(interests);
+      const interestArr = interests ? JSON.parse(interests) : null;
       const user = await pool.query("SELECT * FROM users WHERE email = $1", [
         email,
       ]);
@@ -69,7 +69,7 @@ class AuthController {
           interestInsert(newUser.rows[0].id, arr[i]);
         }
       };
-      insertInterests(interestArr);
+      if(interestArr)insertInterests(interestArr);
 
       const token = jwtGenerator(newUser.rows[0].id);
       return res.json({ token });
