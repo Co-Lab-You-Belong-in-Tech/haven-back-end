@@ -10,7 +10,7 @@ class AuthController {
         email,
       ]);
       if (user.rows.length !== 0) {
-        return res.status(401).send(false);
+          res.status(401).json(false);
       } else res.status(200).json(true);
     } catch (error) {
       console.error(error);
