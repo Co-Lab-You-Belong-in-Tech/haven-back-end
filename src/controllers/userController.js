@@ -4,7 +4,7 @@ class UserController {
   static async getUsers(req, res) {
     try {
       const users = await pool.query(
-        "SELECT username, pronouns, bio FROM users"
+        "SELECT username, first_name, last_name, pronouns, location, avatar_url FROM users"
       );
       res.status(200).json(users.rows);
     } catch (error) {
