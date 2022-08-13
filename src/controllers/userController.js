@@ -55,14 +55,27 @@ class UserController {
       );
 
       const userProfile = {
-        myUser : myUser.rows,
-        myActivities : myActivities.rows,
-        myInterests : myInterests.rows
+        myUser: myUser.rows,
+        myActivities: myActivities.rows,
+        myInterests: myInterests.rows,
       };
       res.status(200).json(userProfile);
     } catch (error) {
       console.error(error);
       res.status(500).json("Server error");
+    }
+  }
+  static async getUserInterest(req, res) {
+    try {
+      const { id } = req.params;
+      const interests = await pool.query(
+        "SELECT * FROM interests WHERE user_id = $1",
+        [id]
+      );
+      res.status(200).json(interests.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("Server Error");
     }
   }
 }
