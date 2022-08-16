@@ -7,7 +7,7 @@ const authorization = require("../middleware/authorization")
 router.post("/register", validInfo, authController.registerUser);
 router.post("/login", validInfo, authController.loginUser);
 router.get("/is-verified", authorization, authController.isVerified);
-router.post("/email", authController.checkEmail);
+router.get("/email", authController.checkEmail);
 
 
 module.exports = router;
