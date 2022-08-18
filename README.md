@@ -24,6 +24,11 @@ Express server for Haven project
   -GET /users/profile **===> Get users profile**
   -GET /users/me **===> Get your own profile**
   
+    **Onboarding**
+  
+  -PUT /onboarding/name **===> Takes variables *first_name*, *last_name* updates first name and last name of the user**
+  -PUT /onboarding/location **===> Takes a variable *location* updates the location of the user**
+  -PUT /onboarding/pronouns **===> Takes a variable *pronouns* updates user's pronouns**
 - **Heroku:**
 
 https://haven-nodejs.herokuapp.com/
