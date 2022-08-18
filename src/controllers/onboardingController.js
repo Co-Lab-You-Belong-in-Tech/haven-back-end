@@ -4,11 +4,11 @@ class OnboardingController {
   static async postName(req, res) {
     try {
       const { first_name, last_name } = req.body;
-      const newUser = await pool.query(
-        "INSERT INTO users first_name, last_name VALUES($1, $2) RETURNING first_name, last_name",
-        [first_name, last_name]
+      const updatedName = await pool.query(
+        "UPDATE users SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name",
+        [first_name, last_name, req.user]
       );
-      res.status(200).json(newUser.rows);
+      res.status(200).json(updatedName.rows);
     } catch (error) {
       console.error(error);
       res.status(500).json("server error");
@@ -17,11 +17,11 @@ class OnboardingController {
   static async postLocation(req, res) {
     try {
       const { location } = req.body;
-      const insertedLocation = await pool.query(
-        "INSERT INTO users location VALUES ($1) RETURNING location",
-        [location]
+      const updatedLocation = await pool.query(
+        "UPDATE  users SET location = $1 WHERE id = $2 RETURNING location",
+        [location, req.user]
       );
-      res.status(200).json(insertedLocation.rows);
+      res.status(200).json(updatedLocation.rows);
     } catch (error) {
       console.error(error);
       res.status(500).json("server error");
@@ -30,11 +30,11 @@ class OnboardingController {
   static async postPronouns(req, res) {
     try {
       const { pronouns } = req.body;
-      const insertedPronouns = await pool.query(
-        "INSERT INTO users pronouns VALUES ($1)",
-        [pronouns]
+      const updatedPronouns = await pool.query(
+        "UPDATE users SET pronouns = $1 WHERE id = $2 RETURNING pronouns",
+        [pronouns, req.user]
       );
-      res.status(200).json(insertedPronouns.rows);
+      res.status(200).json(updatedPronouns.rows);
     } catch (error) {
       console.error(error);
       res.status(500).json("server error");
