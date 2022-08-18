@@ -56,7 +56,7 @@ class OnboardingController {
         }
       };
       if (interests) insertInterests(interestArr);
-      res.json(200);
+      res.status(200);
     } catch (error) {
       console.error(error);
       res.status(500).json("server error");
