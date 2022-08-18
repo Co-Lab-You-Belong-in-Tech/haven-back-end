@@ -42,7 +42,25 @@ class OnboardingController {
   }
   static async postInterests(req, res) {
     try {
-    } catch (error) {}
+      const { interests } = req.body;
+      const interestArr = JSON.parse(interests);
+      const interestInsert = async (user, interest) => {
+        await pool.query(
+          "INSERT INTO interests (user_id, interest) VALUES ($1, $2)",
+          [user, interest]
+        );
+      };
+      const insertInterests = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          interestInsert(req.user, arr[i]);
+        }
+      };
+      if (interests) insertInterests(interestArr);
+      res.json(200);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("server error");
+    }
   }
   static async postMoments(req, res) {
     try {
