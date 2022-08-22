@@ -66,6 +66,18 @@ class OnboardingController {
     try {
     } catch (error) {}
   }
+  static async postBirthday(req, res) {
+    try {
+      const {birthday} = req.body;
+      const updatedBirthday = await pool.query(
+        "UPDATE users SET birthday = $1 WHERE id = $2",[birthday, req.user]
+      )
+      res.status(200).json(updatedBirthday.rows)
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("server error")
+    } 
+  }
 }
 
 module.exports = OnboardingController;
