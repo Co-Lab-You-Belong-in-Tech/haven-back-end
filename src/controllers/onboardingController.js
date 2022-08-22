@@ -70,7 +70,7 @@ class OnboardingController {
     try {
       const {birthday} = req.body;
       const updatedBirthday = await pool.query(
-        "UPDATE users SET birthday = $1 WHERE id = $2",[birthday, req.user]
+        "UPDATE users SET birthday = $1 WHERE id = $2 RETURNING birthday",[birthday, req.user]
       )
       res.status(200).json(updatedBirthday.rows)
     } catch (error) {
