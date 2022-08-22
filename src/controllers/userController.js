@@ -16,7 +16,7 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await pool.query(
-        "SELECT username, pronouns, bio, first_name, last_name, avatar_url, location FROM users WHERE id = $1",
+        "SELECT username, pronouns, birthday, first_name, last_name, avatar_url, location FROM users WHERE id = $1",
         [id]
       );
       const activities = await pool.query(
@@ -42,7 +42,7 @@ class UserController {
   static async getMyUser(req, res) {
     try {
       const myUser = await pool.query(
-        "SELECT username, pronouns, bio, first_name, last_name, avatar_url, location FROM users WHERE id = $1",
+        "SELECT username, pronouns, birthday, first_name, last_name, avatar_url, location FROM users WHERE id = $1",
         [req.user]
       );
       const myActivities = await pool.query(
