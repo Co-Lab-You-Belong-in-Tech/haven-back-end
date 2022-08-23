@@ -66,7 +66,7 @@ class UserController {
         myUser: myUser.rows,
         myActivities: myActivities.rows,
         myInterests: myInterests.rows,
-        myMomnents: myMoments.rows
+        myMoments: myMoments.rows
       };
       res.status(200).json(userProfile);
     } catch (error) {
