@@ -28,10 +28,14 @@ class UserController {
         "SELECT interest FROM interests WHERE user_id = $1",
         [id]
       );
+      const moments = await pool.query(
+        "SELECT question, answer FROM moments WHERE user_id = $1", [id]
+      )
       const userProfile = {
         profile: user.rows,
         activities: activities.rows,
         interests: interests.rows,
+        moments: moments.rows
       };
       res.status(200).json(userProfile);
     } catch (error) {
@@ -53,11 +57,16 @@ class UserController {
         "SELECT * FROM interests WHERE user_id = $1",
         [req.user]
       );
+      const myMoments = await pool.query(
+        "SELECT question, answer FROM moments WHERE user_id = $1",
+        [req.user]
+      )
 
       const userProfile = {
         myUser: myUser.rows,
         myActivities: myActivities.rows,
         myInterests: myInterests.rows,
+        myMomnents: myMoments.rows
       };
       res.status(200).json(userProfile);
     } catch (error) {
