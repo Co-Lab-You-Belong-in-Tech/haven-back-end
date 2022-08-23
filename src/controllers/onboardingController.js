@@ -78,6 +78,27 @@ class OnboardingController {
       res.status(500).json("server error")
     } 
   }
+  static async postMoments(req, res) {
+    try {
+      const {moments} = req.body;
+      const insertMoment = async (user, question, answer) => {
+        await pool.query(
+          "INSERT INTO moments (user_id, question, answer) VALUES ($1, $2, $3)",
+          [user, question, answer]
+        );
+      };
+      const insertMoments = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          insertMoment(req.user, arr[i].question, arr[i].answer);
+        }
+      };
+      if (moments) insertMoments(moments);
+      res.status(200).json("moment added");
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("server error");
+    }
+  }
 }
 
 module.exports = OnboardingController;
