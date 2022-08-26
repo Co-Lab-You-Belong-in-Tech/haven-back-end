@@ -29,10 +29,22 @@ class OnboardingController {
   }
   static async postPronouns(req, res) {
     try {
-      const { pronouns } = req.body;
+      let pronounsString = "";
+      let { pronouns, pronounsCustom } = req.body;
+      pronouns = JSON.parse(pronouns)
+      console.log(pronouns)
+
+      if (pronounsCustom.length !== 0) {
+        pronounsString = pronounsCustom;
+      } else {
+        for (let i = 0; i < pronouns.length; i++) {
+          if(i === pronouns.length - 1) pronounsString += pronouns[i]
+          else pronounsString += `${pronouns[i]} `;
+        }
+      }
       const updatedPronouns = await pool.query(
         "UPDATE users SET pronouns = $1 WHERE id = $2 RETURNING pronouns",
-        [pronouns, req.user]
+        [pronounsString, req.user]
       );
       res.status(200).json(updatedPronouns.rows);
     } catch (error) {
@@ -68,19 +80,20 @@ class OnboardingController {
   }
   static async postBirthday(req, res) {
     try {
-      const {birthday} = req.body;
+      const { birthday } = req.body;
       const updatedBirthday = await pool.query(
-        "UPDATE users SET birthday = $1 WHERE id = $2 RETURNING birthday",[birthday, req.user]
-      )
-      res.status(200).json(updatedBirthday.rows)
+        "UPDATE users SET birthday = $1 WHERE id = $2 RETURNING birthday",
+        [birthday, req.user]
+      );
+      res.status(200).json(updatedBirthday.rows);
     } catch (error) {
       console.error(error);
-      res.status(500).json("server error")
-    } 
+      res.status(500).json("server error");
+    }
   }
   static async postMoments(req, res) {
     try {
-      const {moments} = req.body;
+      const { moments } = req.body;
       const insertMoment = async (user, question, answer) => {
         await pool.query(
           "INSERT INTO moments (user_id, question, answer) VALUES ($1, $2, $3)",
