@@ -93,8 +93,8 @@ class OnboardingController {
   }
   static async postMoments(req, res) {
     try {
-      const { moments } = req.body;
-      console.log(moments)
+      let { moments } = req.body;
+      moments = JSON.parse(moments);
       
       const insertMoment = async (user, question, answer) => {
         await pool.query(
