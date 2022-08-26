@@ -8,6 +8,7 @@ exports.up = function(knex) {
         table.integer("user_id").references("id").inTable("users");
         table.string("question", 50).notNullable();
         table.string("answer", 50).notNullable();
+        table.timestamp('created_at').defaultTo(knex.raw('CURRENT_TIMESTAMP'));
       });
 };
 

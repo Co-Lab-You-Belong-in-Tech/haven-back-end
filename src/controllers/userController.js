@@ -29,7 +29,7 @@ class UserController {
         [id]
       );
       const moments = await pool.query(
-        "SELECT question, answer FROM moments WHERE user_id = $1",
+        "SELECT question, answer, created_at FROM moments WHERE user_id = $1",
         [id]
       );
       const userProfile = {
@@ -59,7 +59,7 @@ class UserController {
         [req.user]
       );
       const myMoments = await pool.query(
-        "SELECT question, answer FROM moments WHERE user_id = $1",
+        "SELECT question, answer, created_at FROM moments WHERE user_id = $1",
         [req.user]
       );
 

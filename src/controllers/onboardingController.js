@@ -94,6 +94,8 @@ class OnboardingController {
   static async postMoments(req, res) {
     try {
       const { moments } = req.body;
+      console.log(moments)
+      
       const insertMoment = async (user, question, answer) => {
         await pool.query(
           "INSERT INTO moments (user_id, question, answer) VALUES ($1, $2, $3)",
