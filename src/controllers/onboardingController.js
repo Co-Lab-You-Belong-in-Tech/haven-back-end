@@ -133,6 +133,16 @@ class OnboardingController {
         res.status(500).json("server error")  
     }
   }
+  // static async shareLocation(req, res) {
+  //   try {
+  //     const {share_location} = req.body
+  //     if(share_location) {
+  //       const locationStatus = await pool.query("UPDATE users SET show_location")
+  //     }
+  //   } catch (error) {
+      
+  //   }
+  // }
 }
 
 module.exports = OnboardingController;
