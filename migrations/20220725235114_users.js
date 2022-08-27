@@ -14,6 +14,10 @@ exports.up = function (knex) {
     table.string("email", 40).notNullable();
     table.string("pronouns");
     table.string("birthday", 60);
+    table.boolean("is_onboarding").defaultTo(true);
+    table.boolean("show_location").defaultTo(false);
+    table.boolean("show_name").defaultTo(true);
+
   });
 };
 

@@ -18,6 +18,7 @@ router.get(
   friendsController.getOutgoingRequests
 );
 router.post("/profile/:id", authorization, friendsController.sendFriendRequest);
-router.get("/profile/:id/interests", authorization, userController.getUserInterest)
+router.get("/profile/:id/interests", authorization, userController.getUserInterest);
+
 
 module.exports = router;

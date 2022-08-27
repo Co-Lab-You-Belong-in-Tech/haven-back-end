@@ -9,5 +9,7 @@ router.put("/pronouns", authorization, onboardingController.postPronouns);
 router.put("/interests", authorization, onboardingController.postInterests);
 router.put("/birthday", authorization, onboardingController.postBirthday);
 router.put("/moments", authorization, onboardingController.postMoments);
+router.get("/status", authorization, onboardingController.checkOnboardingStatus);
+
 
 module.exports = router;

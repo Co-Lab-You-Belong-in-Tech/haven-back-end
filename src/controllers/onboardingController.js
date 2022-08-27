@@ -31,14 +31,14 @@ class OnboardingController {
     try {
       let pronounsString = "";
       let { pronouns, pronounsCustom } = req.body;
-      pronouns = JSON.parse(pronouns)
-      console.log(pronouns)
+      pronouns = JSON.parse(pronouns);
+      console.log(pronouns);
 
       if (pronounsCustom.length !== 0) {
         pronounsString = pronounsCustom;
       } else {
         for (let i = 0; i < pronouns.length; i++) {
-          if(i === pronouns.length - 1) pronounsString += pronouns[i]
+          if (i === pronouns.length - 1) pronounsString += pronouns[i];
           else pronounsString += `${pronouns[i]} `;
         }
       }
@@ -94,7 +94,6 @@ class OnboardingController {
   static async postMoments(req, res) {
     try {
       const { moments } = req.body;
-      
       const insertMoment = async (user, question, answer) => {
         await pool.query(
           "INSERT INTO moments (user_id, question, answer) VALUES ($1, $2, $3)",
@@ -108,6 +107,18 @@ class OnboardingController {
       };
       if (moments) insertMoments(moments);
       res.status(200).json("moment added");
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("server error");
+    }
+  }
+  static async checkOnboardingStatus(req, res) {
+    try {
+      const status = await pool.query(
+        "SELECT is_onboarding FROM users WHERE id = $1",
+        [req.user]
+      );
+      res.json(status.rows[0].is_onboarding);
     } catch (error) {
       console.error(error);
       res.status(500).json("server error");
