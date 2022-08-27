@@ -10,6 +10,8 @@ router.put("/interests", authorization, onboardingController.postInterests);
 router.put("/birthday", authorization, onboardingController.postBirthday);
 router.put("/moments", authorization, onboardingController.postMoments);
 router.get("/status", authorization, onboardingController.checkOnboardingStatus);
+router.put("/finish", authorization, onboardingController.completeOnboarding);
+
 
 
 module.exports = router;

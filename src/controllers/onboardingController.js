@@ -120,8 +120,17 @@ class OnboardingController {
       );
       res.json(status.rows[0].is_onboarding);
     } catch (error) {
-      console.error(error);
-      res.status(500).json("server error");
+        console.error(error);
+        res.status(500).json("server error");
+    }
+  }
+  static async completeOnboarding(req, res) {
+    try {
+      const newStatus = await pool.query("UPDATE users SET is_onboarding = $1", [false])
+      res.status(500).json("onboarding finished");
+    } catch (error) {
+        console.error(error);
+        res.status(500).json("server error")  
     }
   }
 }
